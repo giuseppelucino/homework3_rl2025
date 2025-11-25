@@ -1,7 +1,7 @@
 ##\U0001f916 Project: Fly your drone
 Course: Robotics Lab
 
-Student: Leonardo Riccardi / P38000358
+Student: Giuseppe Lucino / P38000358
 
 ##\U0001f3af Project Objective
 The overarching goal of this project is to extend and validate PX4-Autopilot functionalities through three key development efforts: hardware configuration, control logic modification, and trajectory planning. This includes integrating a custom UAV model and modifying the force land node to implement a critical safety exception concerning pilot interruptions. The core technical requirement involves developing a smooth trajectory planner (non-zero intermediate velocity) in Offboard mode, with its precision and continuity rigorously proven by analyzing logged velocity and acceleration data.
