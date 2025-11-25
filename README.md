@@ -10,9 +10,9 @@ The overarching goal of this project is to extend and validate PX4-Autopilot fun
 Before beginning, you must have QGroundControl (QGround) and PlotJuggler installed.
 
 #Build 
-Clone this package into the src folder of your ROS 2 workspace.
+Clone this package into the src folder of your ROS 2 workspace:
 ```
-
+https://github.com/giuseppelucino/homework3_rl2025.git
 ```
 # Clone this package in the src folder of your ROS 2 workspace.
 Build and source the setup files.
