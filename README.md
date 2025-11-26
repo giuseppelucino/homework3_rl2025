@@ -13,7 +13,7 @@ Before beginning, you must have QGroundControl (QGround) and PlotJuggler install
 # Build 
 Clone this package into the src folder of your ROS 2 workspace
 ```
-git clone https://github.com/giuseppelucino/homework3_rl25.git
+git clone https://github.com/giuseppelucino/homework3_rl2025.git
 ```
 now move these files in the right folders :
 1. aerial_robotics folder in your src folder of your ROS 2.
