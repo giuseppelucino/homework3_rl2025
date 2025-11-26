@@ -1,40 +1,50 @@
-##\U0001f916 Project: Fly your drone
+# 🤖 Project: Fly your drone
+
 Course: Robotics Lab
 
-Student: Giuseppe Lucino / P38000358
+Student: Giuseppe Lucino / P38000340
 
-##\U0001f3af Project Objective
+# 🎯 Project Objective
 The overarching goal of this project is to extend and validate PX4-Autopilot functionalities through three key development efforts: hardware configuration, control logic modification, and trajectory planning. This includes integrating a custom UAV model and modifying the force land node to implement a critical safety exception concerning pilot interruptions. The core technical requirement involves developing a smooth trajectory planner (non-zero intermediate velocity) in Offboard mode, with its precision and continuity rigorously proven by analyzing logged velocity and acceleration data.
 
-##\u2699\ufe0f Prerequisites and Setup
+# ⚙️ Prerequisites and Setup
 Before beginning, you must have QGroundControl (QGround) and PlotJuggler installed.
 
-#Build 
-Clone this package into the src folder of your ROS 2 workspace:
+# Build 
+Clone this package into the src folder of your ROS 2 workspace
 ```
-https://github.com/giuseppelucino/homework3_rl2025.git
+git clone https://github.com/giuseppelucino/homework3_rl25.git
 ```
+now move these files in the right folders :
+1. aerial_robotics folder in your src folder of your ROS 2.
+2. my_quadrotor folder in PX4-Autopilot/Tools/simulation/gz/models
+3. 3001_my_quadrotor file in PX4-Autopilot/ROMFS/px4fmu_common/init.d-posix/airframes
+4. Replace CMakeLists.txt file in PX4-Autopilot/ROMFS/px4fmu_common/init.d-posix/airframes and dds_topics.yaml file in PX4-Autopilot/src/modules/uxrce_dds_client with the corrisponding files obtained with git clone
+
 # Clone this package in the src folder of your ROS 2 workspace.
 Build and source the setup files.
-
+```
+cd /home/user/ros2_ws
+```
 ```
 colcon build
 ```
 ```
 source install/setup.bash
 ```
-## \U0001f680 HOW TO LAUNCH
+## 🚀 HOW TO LAUNCH
 Terminal 1: PX4 SITL.Launch the drone in Gazebo. First, navigate to the dedicated PX4-Autopilot folder.
-#Ensure QGroundControl is kept open.
+# Ensure QGroundControl is kept open.
 
 ```
 cd src/PX4-Autopilot/
 make px4_sitl gz_my_quadrotor
 ```
-## \U0001f4ca ACTUATOR PLOT IN REAL-TIME
+## 📊 ACTUATOR PLOT IN REAL-TIME
 Terminal 2: Initialize DDS Bridge. Source the setup files and execute the command. DDS_run.sh initiates the DDS communication bridge, which is essential for enabling the exchange of flight-critical data between the PX4 flight simulator and the complementary control nodes developed within the ROS 2 ecosystem.
 
 ```
+cd /home/user/ros2_ws
 source install/setup.bash
 ```
 ```
@@ -43,6 +53,7 @@ cd src/aerial_robotics/
 ```
 Terminal 3: PlotJuggler for Real-Time Actuator Output.Source the setup files in a new terminal and open PlotJuggler.
 ```
+cd /home/user/ros2_ws
 source install/setup.bash
 ```
 ```
@@ -50,7 +61,7 @@ cd src/aerial_robotics/ros2_ws/
 ros2 run plotjuggler plotjuggler
 ```
 # Visualization Setup
-For real-time visualization:
+Move your drone by using Qground with left and right joystick. For real-time visualization:
 
 1.Press Start.
 
@@ -68,11 +79,12 @@ For real-time visualization:
 
 Tip: Increase the buffer size to view the complete trajectory trace.
 
-## \U0001f6a8 MONITORING DRONE ALTITUDE (Force Land Implementation)
+## 🚨 MONITORING DRONE ALTITUDE (Force Land Implementation)
 Keep your drone running in Gazebo with make px4_sitl gz_my_quadrotor and keep QGroundControl open.
 
 Terminal 2: Initialize DDS Bridge.Source the setup files and execute DDS_run.sh.
 ```
+cd /home/user/ros2_ws
 source install/setup.bash
 ```
 ```
@@ -82,7 +94,10 @@ cd src/aerial_robotics/
 Terminal 3: Start ROS 2 Bag Recording .Launch the ROS 2 bag command to record the drone's flight path into a folder named proof_flight.
 
 ```
+cd /home/user/ros2_ws
 source install/setup.bash
+```
+```
 cd src/aerial_robotics/ros2_ws
 ```
 ```
@@ -91,12 +106,13 @@ ros2 bag record -o proof_flight /fmu/out/vehicle_local_position /fmu/out/manual_
 Terminal 4: Launch Force Land Node .Source the setup files in a new terminal and launch the node that monitors the drone's altitude.
 
 ```
+cd /home/user/ros2_ws
 source install/setup.bash
 ```
 ```
 ros2 launch force_land force_land.launch.py
 ```
-#Testing the Safety Exception
+# Testing the Safety Exception
 
 1.In QGroundControl, execute a Takeoff and wait until it reaches 10 meters.
 
@@ -113,6 +129,7 @@ Terminal 5: Analyze Logged Data with PlotJuggler
 Source the setup files in the workspace and launch PlotJuggler.
 
 ```
+cd /home/user/ros2_ws
 source install/setup.bash
 ```
 ```
@@ -133,11 +150,12 @@ ros2 run plotjuggler plotjuggler
 
 6.Drag all these series onto the graph and analyze the system's behavior.
 
-## \U0001f496 DRONE EXECUTES A HEART-SHAPED TRAJECTORY
+## 💖 DRONE EXECUTES A HEART-SHAPED TRAJECTORY
 Keep your drone running in Gazebo with make px4_sitl gz_my_quadrotor and keep QGroundControl open.
 
 Terminal 2.Source the setup files and execute DDS_run.sh.
 ```
+cd /home/user/ros2_ws
 source install/setup.bash
 ```
 ```
@@ -147,7 +165,10 @@ cd src/aerial_robotics/
 
 Terminal 3. First, make the drone takeoff in QGroundControl. Then, launch the ROS 2 bag command to record the drone's flight path into a folder called heart_trajectory.
 ```
+cd /home/user/ros2_ws
 source install/setup.bash
+```
+```
 cd src/aerial_robotics/ros2_ws 
 ```
 ```
@@ -156,6 +177,7 @@ ros2 bag record -o heart_trajectory /fmu/out/vehicle_local_position /fmu/out/veh
 
 Terminal 4.Launch Trajectory Node . In your workspace, execute this command. The drone will execute a heart-shaped trajectory.
 ```
+cd /home/user/ros2_ws
 source install/setup.bash
 ```
 ```
@@ -163,6 +185,7 @@ ros2 run offboard_rl go_to_point
 ```
 Terminal 5. Analyze Trajectory Data with PlotJuggler. Source the setup files in the workspace. After the drone completes the trajectory, launch PlotJuggler.
 ```
+cd /home/user/ros2_ws
 source install/setup.bash
 ```
 ```
@@ -175,7 +198,7 @@ ros2 run plotjuggler plotjuggler
 
 2.Select metadata.yaml, choose /fmu/out/vehicle_local_position and /fmu/out/vehicle_attitude, and click OK.
 
-#Plot 1: 2D Trajectory (Shape Verification)
+# Plot 1: 2D Trajectory (Shape Verification)
 
 1.In the Timeseries List, navigate to /fmu/out/vehicle_local_position.
 
@@ -183,7 +206,7 @@ ros2 run plotjuggler plotjuggler
 
 3.Right-click on the selected series and drag them onto the graph to display the 2D trajectory covered by the drone.
 
-#Plot 2: Velocity Magnitude (Continuity Proof)
+# Plot 2: Velocity Magnitude (Continuity Proof)
 
 1.Split another plot.
 
@@ -196,11 +219,11 @@ return sqrt(value*value + v1*v1 + v2*v2)^(1/2)
 
 5.Click "Create New Timeseries".
 
-#Plot 3: Acceleration Magnitude (Smoothness Proof)
+# Plot 3: Acceleration Magnitude (Smoothness Proof)
 
 Perform the same procedure as Plot 2, but using ax, ay, and az to calculate the total acceleration with the same formula.
 
-#Plot 4: Yaw Angle (Orientation)
+# Plot 4: Yaw Angle (Orientation)
 
 1.For the Yaw angle, go to /fmu/out/vehicle_attitude/q[].
 
