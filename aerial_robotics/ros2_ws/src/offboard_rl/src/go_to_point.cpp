@@ -76,7 +76,7 @@ class GoToPoint : public rclcpp::Node
         {0.0, 0.0, -10.0, 0.0} 
     };
 
-    // Tempo T per ogni segmento (mantenuti i tempi veloci per V_min alta)
+   
     const std::vector<double> SEGMENT_TIMES = {5.0, 5.0, 8.0, 8.0, 5.0, 5.0, 5.0};
 
     int current_segment_index{0}; 
